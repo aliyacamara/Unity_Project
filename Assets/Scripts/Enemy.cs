@@ -1,0 +1,30 @@
+using Unity.VisualScripting;
+using UnityEngine;
+
+public class ENNEMI : MonoBehaviour
+{
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        
+    }
+
+   void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!collision.gameObject.CompareTag("Player"))
+        {
+            return;
+        }
+
+        ContactPoint2D contact = collision.GetContact(0);
+
+        if (contact.normal.y < -0.5f)
+        {
+            Destroy(gameObject);
+        } else
+        {
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            playerHealth.TakeDamage();
+        }
+   }
+}
